@@ -20,7 +20,9 @@ va_start(args, format);
 i = 0;
 if (format[0] == '%' && format[1] == '\0')
 return (-1);
-while (format != NULL && format[i] != '\0')					{										if (format[i] == '%')
+while (format != NULL && format[i] != '\0')
+{
+if (format[i] == '%')
 {
 if (format[i + 1] == '%')
 {
