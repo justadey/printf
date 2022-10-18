@@ -1,53 +1,25 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "holberton.h"
-#include <stddef.h>
+#include "main.h"
 
 /**
- * _printf - recreates the printf function
- * @format: string with format specifier
- * Return: number of characters printed
- */
+ * _printf - Produces output according to a format
+ * @format: Is a character string. The format string
+ * is composed of zero or more directives
+ * Return: The number of characters printed (excluding
+ * the null byte used to end output to strings)
+ **/
 int _printf(const char *format, ...)
 {
-if (format != NULL)
-{
-int count = 0, i;
-int (*m)(va_list);
+int size;
 va_list args;
+if (format == NULL)
+return (-1);
+size = _strlen(format);
+if (size <= 0)
+return (0);
 va_start(args, format);
-i = 0;
-if (format[0] == '%' && format[1] == '\0')
-return (-1);
-while (format != NULL && format[i] != '\0')
-{
-if (format[i] == '%')
-{
-if (format[i + 1] == '%')
-{
-count += _putchar(format[i]);
-i += 2;
-}
-else
-{
-m = get_func(format[i + 1]);
-if (m)
-count += m(args);
-else
-count = _putchar(format[i]) + _putchar(format[i + 1]);
-i += 2;
-}
-}
-else
-{
-count += _putchar(format[i]);
-i++;
-}
-}
+size = handler(format, args);
+_putchar(-1);
 va_end(args);
-return (count);
-}
-return (-1);
+return (size);
 
 }
